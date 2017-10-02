@@ -26,6 +26,8 @@ public class Main {
 		//ArrayList<Element> fal_tafla = varpa.getOrderlyTable();
 		varpa.getAwayOrderlyTable();
 		varpa.getHomeOrderlyTable();
+		
+		
 	
 		//for (int i = 0; i < fal_tafla.size(); i++) {
 		//System.out.println(varpa.getOrderlyTable());
