@@ -1,20 +1,39 @@
 package main;
 
+import java.awt.List;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Spliterator;
 
 import org.jsoup.nodes.Element;
 
+import match.Match;
 import scraper.Scraper;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		Scraper varpa = new Scraper("singapore");
-		//varpa.setCountry("Norway");
+		
+		Scraper varpa = new Scraper("germany2");
+	
+		ArrayList<String> league = new ArrayList<String>();
+		ArrayList<Integer> number_of_matches = new ArrayList<Integer>();
+		
+		number_of_matches.addAll(Arrays.asList(4, 4, 8, 5, 5));
+		league.addAll(Arrays.asList("spain", "portugal", "italy5", "spain2", "spain6")); 
+		
+		
+		ArrayList<Match> match = new ArrayList<Match>();
+		
+		for (int s = 0; s < number_of_matches.size(); s++) {
+			
+		String hhh = league.get(s);
+		varpa.setCountry(hhh);
+		hhh = "";
+		
 		
 		System.out.println(varpa.connectLeague());
 		varpa.connectAllPastResults();
@@ -23,14 +42,14 @@ public class Main {
 		varpa.getHomeOrderlyTable();
 		System.out.println("\n");
 		varpa.getAwayOrderlyTable();
-		
+	
 		
 		ArrayList<String> home_leikir = varpa.getHomePlayedMatches();
 		ArrayList<String> away_leikir = varpa.getAwayPlayedMatches();
 		//System.out.println(away_leikir);
 	
 		int whitespace_counter = 0;
-		ArrayList<String> future_matches = varpa.connectFutureResults(2);
+		ArrayList<String> future_matches = varpa.connectFutureResults(number_of_matches.get(s));
 		ArrayList<String> fm_home_team = new ArrayList<String>(); //ft = future_matches
 		ArrayList<String> fm_away_team = new ArrayList<String>();
 		for (int i = 0; i < future_matches.size(); i++) {
@@ -54,6 +73,8 @@ public class Main {
 		System.out.println(future_matches);
 		System.out.println(fm_home_team);
 		System.out.println(fm_away_team);
+		
+		
 		
 		for (int i = 0; i < fm_home_team.size(); i++) {
 		
@@ -84,11 +105,32 @@ public class Main {
 		System.out.println(100/home_team_percentage + "  " + 100/away_team_percentage);
 		String s_odds = stabilizeOdds(100/home_team_percentage, 100/away_team_percentage);
 		System.out.println(s_odds);
+		match.add(new Match(varpa.getHomeTeam(), varpa.getAwayTeam(), home_team_percentage, away_team_percentage, varpa.getCountry()));
 		varpa.clean(); //Endurstilla alla lista og þannig annars bætist bara við þá þegar komið er mað leik nr2 og so on
+		}
+		
+		varpa.cleanOrderlyTables();
+		
+		
+		} // lok fyrir S loopuna
+		
+		
+		for (int i = 0; i < match.size(); i++) {
+			if ((match.get(i).getHomeTPerc() > 105) || (match.get(i).getAwayTPerc()) > 111) {
+				
+			}
+			
+		}
+		Collections.sort(match);
+		for (int i = 0; i < match.size(); i++) {
+			System.out.println(match.get(i).toString());
 		}
 		
 		
 	}
+	
+	
+	
 	
 	public static int getPercentage(int team_score, double one_percent) {
 		int team_percent = 0;

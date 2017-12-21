@@ -39,11 +39,29 @@ public class Scraper {
 		league = deild;
 	}
 	
+	public void cleanOrderlyTables() {
+		orderly_home_table.clear();
+		orderly_away_table.clear();
+	}
+	
 	public void clean() {
 		
-		home_past_matches.clear();; //Þessi listi er hinsvegar fyrir aðeins alla heimaleiki "home" liðsins
-		away_past_matches.clear();;
 		
+		home_past_matches.clear(); //Þessi listi er hinsvegar fyrir aðeins alla heimaleiki "home" liðsins
+		away_past_matches.clear();
+	
+		doc_nett.clearAttributes(); //Ath: Þetta er home/away taflan
+		doc_all_results.clearAttributes();
+		home_team = "";
+		away_team = "";
+		full_table_home_string = "";
+		full_table_away_string = "";
+		full_table_home.clearAttributes();
+		full_table_away.clearAttributes();
+		ar_table.clearAttributes();
+		
+		soccerstats_ha_adress = "http://www.soccerstats.com/homeaway.asp?league="; //Fyrir s loopuna, resetta strenginn
+		soccerstats_ar_adress = "http://www.soccerstats.com/team_results.asp?league="; //Linkurinn til all results töflunnar
 	}
 	
 	public void setCountry(String country) {
@@ -73,6 +91,7 @@ public class Scraper {
 	public String connectLeague() throws IOException {
 		soccerstats_ha_adress = soccerstats_ha_adress + league;
 		doc_nett = Jsoup.connect(soccerstats_ha_adress).get();
+		
 		Element ele = doc_nett.body();
 		//full_table_home = ele.getElementById("btable");
 		full_table_home = ele.select("#btable").get(0); // # merkir id sem við leitum af, þetta id er t.d. svona: id="btable"
@@ -351,6 +370,7 @@ public ArrayList<String> getHomeOrderlyTable() {
 		int loss_score;
 		int team_score = 0;
 		int team_place_index = 0;
+		System.out.println(away_team);
 		Pattern pattern_away = Pattern.compile(away_team); //Regex
 		
 		int start_char_pos;
@@ -369,7 +389,7 @@ public ArrayList<String> getHomeOrderlyTable() {
 				//matcher.group(),
 				//matcher.start(),
 				//matcher.end(),
-				start_char_pos  = matcher_away.start(); // ")"
+				start_char_pos  = matcher_away.start(); 
 				if (start_char_pos > midju_strikid) {
 					away_past_matches.add(past_matches_away.get(i));
 				}
