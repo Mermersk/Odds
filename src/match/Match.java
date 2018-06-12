@@ -39,6 +39,14 @@ public class Match implements Comparable<Match> {
 	public String toString() {
 		return team_a + ": " + String.valueOf(team_a_p) + "  " + team_b + ": " + String.valueOf(team_b_p) + "  Diff: " + String.valueOf(difference) + "   " + league;
 	}
+	
+	public String getHomeTeamName() {
+		return this.team_a;
+	}
+	
+	public String getAwayTeamName() {
+		return this.team_b;
+	}
 
 	@Override
 	public int compareTo(Match other) {

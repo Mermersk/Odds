@@ -9,6 +9,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Spliterator;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 import org.jsoup.nodes.Element;
 
 import match.Match;
@@ -22,8 +26,8 @@ public class Main {
 		ArrayList<String> league = new ArrayList<String>();
 		ArrayList<Integer> number_of_matches = new ArrayList<Integer>();
 		
-		number_of_matches.addAll(Arrays.asList(4, 4, 8, 5, 5));
-		league.addAll(Arrays.asList("spain", "portugal", "italy5", "spain2", "spain6")); 
+		number_of_matches.addAll(Arrays.asList(4, 4));
+		league.addAll(Arrays.asList("norway", "sweden")); 
 		
 		
 		ArrayList<Match> match = new ArrayList<Match>();
@@ -115,16 +119,38 @@ public class Main {
 		} // lok fyrir S loopuna
 		
 		
-		for (int i = 0; i < match.size(); i++) {
-			if ((match.get(i).getHomeTPerc() > 105) || (match.get(i).getAwayTPerc()) > 111) {
-				
-			}
-			
-		}
 		Collections.sort(match);
+		
+		ArrayList<ChartFrame> gog = new ArrayList<ChartFrame>();
+		DefaultPieDataset d = new DefaultPieDataset();
 		for (int i = 0; i < match.size(); i++) {
 			System.out.println(match.get(i).toString());
+			
+			d.setValue(match.get(i).getHomeTeamName(), match.get(i).getHomeTPerc());
+			d.setValue(match.get(i).getAwayTeamName(), match.get(i).getAwayTPerc());
+			
+			JFreeChart kart = ChartFactory.createPieChart("Match", d, true, true, false);
+			ChartFrame frame = new ChartFrame("match", kart);
+			frame.pack();
+			gog.add(frame);
+		
+			
+			
 		}
+		
+		System.out.println(gog.size());
+		
+		for (int i = 0; i < gog.size(); i++) {
+			ChartFrame temp = gog.get(i);
+			
+			temp.setVisible(true);
+		}
+		
+		//frame.pack();
+		//frame.setVisible(true);
+		
+		//d.setValue("Brest", match.get(3).getHomeTPerc());
+		//d.setValue("Auxerre", match.get(3).getAwayTPerc());
 		
 		
 	}
@@ -181,6 +207,7 @@ public class Main {
 		
 		return "Stablized odds| Home Team: " + s_home_odds + " Away Team: " + s_away_odds;
 	}
+
 
 }
 

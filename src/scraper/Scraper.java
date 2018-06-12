@@ -348,8 +348,8 @@ public ArrayList<String> getHomeOrderlyTable() {
 					team_score = team_score - team_place_index - 1;
 				}
 				if (home_past_matches_results.charAt(i) == 'd') {
-					team_score = team_score + (orderly_away_table.size() - team_place_index)/2;
-				}
+					team_score = team_score + (orderly_away_table.size() - team_place_index);
+				} //13. april breyting: tók /2 út i endan, Original = team_score = team_score + (orderly_away_table.size() - team_place_index)/2
 			
 			
 			//Insert lokareiknings-kóðann
@@ -465,7 +465,7 @@ public ArrayList<String> getHomeOrderlyTable() {
 					team_score = team_score - team_place_index - 1;
 				}
 				if (away_past_matches_results.charAt(i) == 'd') {
-					team_score = team_score + (orderly_home_table.size() - team_place_index)/2;
+					team_score = team_score + (orderly_home_table.size() - team_place_index);
 				}
 			//}
 				System.out.println(team_score);

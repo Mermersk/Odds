@@ -7,5 +7,8 @@
 			<attribute name="javadoc_location" value="https://jsoup.org/apidocs/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/isak/Documents/jfreechart-1.0.19-demo.jar"/>
+	<classpathentry kind="lib" path="/home/isak/Documents/jfreechart-1.0.19/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="/home/isak/Documents/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
